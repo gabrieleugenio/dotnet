@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RestWithASPNETUdemy.Model;
-using RestWithASPNETUdemy.Services;
+using RestWithASPNETUdemy.Business;
 namespace RestWithASPNETUdemy.Controllers
 {
 
@@ -14,13 +14,13 @@ namespace RestWithASPNETUdemy.Controllers
     public class PersonsController : Controller
     {
         //Declaração do serviço usado
-        private IPersonService personService;
+        private IPersonBusiness personBusiness;
 
-        /* Injeção de uma instancia de IPersonService ao criar
+        /* Injeção de uma instancia de IPersonBusiness ao criar
         uma instancia de PersonController */
-        public PersonsController(IPersonService personService)
+        public PersonsController(IPersonBusiness personBusiness)
         {
-            this.personService = personService;
+            this.personBusiness = personBusiness;
         }
 
         //Mapeia as requisições GET para http://localhost:{porta}/api/person/
@@ -28,7 +28,7 @@ namespace RestWithASPNETUdemy.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(this.personService.findAll());
+            return Ok(this.personBusiness.findAll());
         }
 
         //Mapeia as requisições GET para http://localhost:{porta}/api/person/{id}
@@ -37,7 +37,7 @@ namespace RestWithASPNETUdemy.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            var person = this.personService.findById(id);
+            var person = this.personBusiness.findById(id);
             if (person == null) return NotFound();
             return Ok(person);
         }
@@ -48,7 +48,7 @@ namespace RestWithASPNETUdemy.Controllers
         public IActionResult Post([FromBody]Person person)
         {
             if (person == null) return BadRequest();
-            return new  ObjectResult(this.personService.create(person));
+            return new  ObjectResult(this.personBusiness.create(person));
         }
 
         //Mapeia as requisições PUT para http://localhost:{porta}/api/person/
@@ -57,7 +57,7 @@ namespace RestWithASPNETUdemy.Controllers
         public IActionResult Put([FromBody]Person person)
         {
             if (person == null) return BadRequest();
-            return new ObjectResult(this.personService.update(person));
+            return new ObjectResult(this.personBusiness.update(person));
         }
 
 
@@ -66,7 +66,7 @@ namespace RestWithASPNETUdemy.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            this.personService.delete(id);
+            this.personBusiness.delete(id);
             return NoContent();
         }
     }

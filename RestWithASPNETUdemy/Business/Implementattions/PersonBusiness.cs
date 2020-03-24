@@ -4,14 +4,14 @@ using RestWithASPNETUdemy.Model.Context;
 using System;
 using System.Linq;
 
-namespace RestWithASPNETUdemy.Services.Implementattions
+namespace RestWithASPNETUdemy.Business.Implementattions
 {
-    public class PersonServiceImpl : IPersonService
+    public class PersonBusiness : IPersonBusiness
     {
 
         private MySQLContext context;
 
-        public PersonServiceImpl(MySQLContext context)
+        public PersonBusiness(MySQLContext context)
         {
             this.context = context;
         }
