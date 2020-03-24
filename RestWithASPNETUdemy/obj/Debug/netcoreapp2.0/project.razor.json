@@ -1,11 +1,11 @@
 {
   "FilePath": "/home/gabriel/Documents/dotnet core and c#/dotnet/RestWithASPNETUdemy/RestWithASPNETUdemy.csproj",
   "Configuration": {
-    "ConfigurationName": "MVC-2.1",
-    "LanguageVersion": "2.1",
+    "ConfigurationName": "MVC-2.0",
+    "LanguageVersion": "2.0",
     "Extensions": [
       {
-        "ExtensionName": "MVC-2.1"
+        "ExtensionName": "MVC-2.0"
       }
     ]
   },
@@ -1776,20 +1776,6 @@
           },
           {
             "Kind": "ITagHelper",
-            "Name": "name",
-            "TypeName": "System.String",
-            "IsEnum": false,
-            "IndexerNamePrefix": null,
-            "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            The name of the &lt;input&gt; element.\n            </summary>\n            <remarks>\n            Passed through to the generated HTML in all cases. Also used to determine whether <see cref=\"P:Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper.For\" /> is\n            valid with an empty <see cref=\"P:Microsoft.AspNetCore.Mvc.ViewFeatures.ModelExpression.Name\" />.\n            </remarks>\n        ",
-            "Diagnostics": [],
-            "Metadata": {
-              "Common.PropertyName": "Name"
-            },
-            "BoundAttributeParameters": []
-          },
-          {
-            "Kind": "ITagHelper",
             "Name": "value",
             "TypeName": "System.String",
             "IsEnum": false,
@@ -2201,96 +2187,6 @@
       },
       {
         "Kind": "ITagHelper",
-        "Name": "Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper",
-        "AssemblyName": "Microsoft.AspNetCore.Mvc.TagHelpers",
-        "Documentation": "\n            <summary>\n            Renders a partial view.\n            </summary>\n        ",
-        "TagOutputHint": null,
-        "CaseSensitive": false,
-        "TagMatchingRules": [
-          {
-            "TagName": "partial",
-            "ParentTag": null,
-            "TagStructure": 2,
-            "Attributes": [
-              {
-                "Name": "name",
-                "NameComparison": 0,
-                "Value": null,
-                "ValueComparison": 0,
-                "Diagnostics": [],
-                "Metadata": {}
-              }
-            ],
-            "Diagnostics": []
-          }
-        ],
-        "BoundAttributes": [
-          {
-            "Kind": "ITagHelper",
-            "Name": "name",
-            "TypeName": "System.String",
-            "IsEnum": false,
-            "IndexerNamePrefix": null,
-            "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            The name or path of the partial view that is rendered to the response.\n            </summary>\n        ",
-            "Diagnostics": [],
-            "Metadata": {
-              "Common.PropertyName": "Name"
-            },
-            "BoundAttributeParameters": []
-          },
-          {
-            "Kind": "ITagHelper",
-            "Name": "for",
-            "TypeName": "Microsoft.AspNetCore.Mvc.ViewFeatures.ModelExpression",
-            "IsEnum": false,
-            "IndexerNamePrefix": null,
-            "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            An expression to be evaluated against the current model. Cannot be used together with <see cref=\"P:Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper.Model\" />.\n            </summary>\n        ",
-            "Diagnostics": [],
-            "Metadata": {
-              "Common.PropertyName": "For"
-            },
-            "BoundAttributeParameters": []
-          },
-          {
-            "Kind": "ITagHelper",
-            "Name": "model",
-            "TypeName": "System.Object",
-            "IsEnum": false,
-            "IndexerNamePrefix": null,
-            "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            The model to pass into the partial view. Cannot be used together with <see cref=\"P:Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper.For\" />.\n            </summary>\n        ",
-            "Diagnostics": [],
-            "Metadata": {
-              "Common.PropertyName": "Model"
-            },
-            "BoundAttributeParameters": []
-          },
-          {
-            "Kind": "ITagHelper",
-            "Name": "view-data",
-            "TypeName": "Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary",
-            "IsEnum": false,
-            "IndexerNamePrefix": "view-data-",
-            "IndexerTypeName": "System.Object",
-            "Documentation": "\n            <summary>\n            A <see cref=\"T:Microsoft.AspNetCore.Mvc.ViewFeatures.ViewDataDictionary\" /> to pass into the partial view.\n            </summary>\n        ",
-            "Diagnostics": [],
-            "Metadata": {
-              "Common.PropertyName": "ViewData"
-            },
-            "BoundAttributeParameters": []
-          }
-        ],
-        "AllowedChildTags": [],
-        "Diagnostics": [],
-        "Metadata": {
-          "Runtime.Name": "ITagHelper",
-          "Common.TypeName": "Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper"
-        }
-      },
-      {
-        "Kind": "ITagHelper",
         "Name": "Microsoft.AspNetCore.Mvc.TagHelpers.ScriptTagHelper",
         "AssemblyName": "Microsoft.AspNetCore.Mvc.TagHelpers",
         "Documentation": "\n            <summary>\n            <see cref=\"T:Microsoft.AspNetCore.Razor.TagHelpers.ITagHelper\" /> implementation targeting &lt;script&gt; elements that supports fallback src paths.\n            </summary>\n            <remarks>\n            The tag helper won't process for cases with just the 'src' attribute.\n            </remarks>\n        ",
@@ -2600,20 +2496,6 @@
               "Common.PropertyName": "Items"
             },
             "BoundAttributeParameters": []
-          },
-          {
-            "Kind": "ITagHelper",
-            "Name": "name",
-            "TypeName": "System.String",
-            "IsEnum": false,
-            "IndexerNamePrefix": null,
-            "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            The name of the &lt;input&gt; element.\n            </summary>\n            <remarks>\n            Passed through to the generated HTML in all cases. Also used to determine whether <see cref=\"P:Microsoft.AspNetCore.Mvc.TagHelpers.SelectTagHelper.For\" /> is\n            valid with an empty <see cref=\"P:Microsoft.AspNetCore.Mvc.ViewFeatures.ModelExpression.Name\" />.\n            </remarks>\n        ",
-            "Diagnostics": [],
-            "Metadata": {
-              "Common.PropertyName": "Name"
-            },
-            "BoundAttributeParameters": []
           }
         ],
         "AllowedChildTags": [],
@@ -2662,20 +2544,6 @@
               "Common.PropertyName": "For"
             },
             "BoundAttributeParameters": []
-          },
-          {
-            "Kind": "ITagHelper",
-            "Name": "name",
-            "TypeName": "System.String",
-            "IsEnum": false,
-            "IndexerNamePrefix": null,
-            "IndexerTypeName": null,
-            "Documentation": "\n            <summary>\n            The name of the &lt;input&gt; element.\n            </summary>\n            <remarks>\n            Passed through to the generated HTML in all cases. Also used to determine whether <see cref=\"P:Microsoft.AspNetCore.Mvc.TagHelpers.TextAreaTagHelper.For\" /> is\n            valid with an empty <see cref=\"P:Microsoft.AspNetCore.Mvc.ViewFeatures.ModelExpression.Name\" />.\n            </remarks>\n        ",
-            "Diagnostics": [],
-            "Metadata": {
-              "Common.PropertyName": "Name"
-            },
-            "BoundAttributeParameters": []
           }
         ],
         "AllowedChildTags": [],
@@ -2718,7 +2586,7 @@
             "IsEnum": false,
             "IndexerNamePrefix": null,
             "IndexerTypeName": null,
-            "Documentation": null,
+            "Documentation": "\n            <summary>\n            Name to be validated on the current model.\n            </summary>\n        ",
             "Diagnostics": [],
             "Metadata": {
               "Common.PropertyName": "For"
@@ -2874,7 +2742,7 @@
     ],
     "CSharpLanguageVersion": 703
   },
-  "RootNamespace": "RestWithASPNETUdemy",
+  "RootNamespace": null,
   "Documents": [],
   "SerializationFormat": "0.2"
 }
