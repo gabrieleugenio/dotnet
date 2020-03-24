@@ -5,10 +5,10 @@ namespace RestWithASPNETUdemy.Services
 {
     public interface IPersonService
     {
-        Person Create(Person person);
-        Person FindById(long id);
-        List<Person> FindAll();
-        Person Update(Person person);
-        void Delete(long id);
+        Person create(Person person);
+        Person findById(long id);
+        List<Person> findAll();
+        Person update(Person person);
+        void delete(long id);
     }
 }

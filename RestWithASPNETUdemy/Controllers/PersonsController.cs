@@ -14,13 +14,13 @@ namespace RestWithASPNETUdemy.Controllers
     public class PersonsController : Controller
     {
         //Declaração do serviço usado
-        private IPersonService _personService;
+        private IPersonService personService;
 
         /* Injeção de uma instancia de IPersonService ao criar
         uma instancia de PersonController */
         public PersonsController(IPersonService personService)
         {
-            _personService = personService;
+            this.personService = personService;
         }
 
         //Mapeia as requisições GET para http://localhost:{porta}/api/person/
@@ -28,7 +28,7 @@ namespace RestWithASPNETUdemy.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_personService.FindAll());
+            return Ok(this.personService.findAll());
         }
 
         //Mapeia as requisições GET para http://localhost:{porta}/api/person/{id}
@@ -37,7 +37,7 @@ namespace RestWithASPNETUdemy.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            var person = _personService.FindById(id);
+            var person = this.personService.findById(id);
             if (person == null) return NotFound();
             return Ok(person);
         }
@@ -48,7 +48,7 @@ namespace RestWithASPNETUdemy.Controllers
         public IActionResult Post([FromBody]Person person)
         {
             if (person == null) return BadRequest();
-            return new  ObjectResult(_personService.Create(person));
+            return new  ObjectResult(this.personService.create(person));
         }
 
         //Mapeia as requisições PUT para http://localhost:{porta}/api/person/
@@ -57,7 +57,7 @@ namespace RestWithASPNETUdemy.Controllers
         public IActionResult Put([FromBody]Person person)
         {
             if (person == null) return BadRequest();
-            return new ObjectResult(_personService.Update(person));
+            return new ObjectResult(this.personService.update(person));
         }
 
 
@@ -66,7 +66,7 @@ namespace RestWithASPNETUdemy.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _personService.Delete(id);
+            this.personService.delete(id);
             return NoContent();
         }
     }
