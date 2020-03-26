@@ -1,14 +1,14 @@
 using System.Collections.Generic;
-using RestWithASPNETUdemy.Model;
+using RestWithASPNETUdemy.Data.VO;
 
 namespace RestWithASPNETUdemy.Business
 {
     public interface IBookBusiness
     {
-        Book create(Book book);
-        Book findById(long id);
-        List<Book> findAll();
-        Book update(Book book);
+        BookVO create(BookVO book);
+        BookVO findById(long id);
+        List<BookVO> findAll();
+        BookVO update(BookVO book);
         void delete(long id);
          
     }

@@ -1,44 +1,53 @@
 ﻿using System.Collections.Generic;
+using RestWithASPNETUdemy.Data.Converters;
+using RestWithASPNETUdemy.Data.VO;
 using RestWithASPNETUdemy.Model;
-using RestWithASPNETUdemy.Repository;
+
+using RestWithASPNETUdemy.Repository.Generic;
 
 namespace RestWithASPNETUdemy.Business.Implementattions
 {
     public class PersonBusiness : IPersonBusiness
     {
 
-        private IPersonRepository repository;
+        private IRepository<Person> repository;
+        private readonly PersonConverter converter;
 
-        public PersonBusiness(IPersonRepository repository)
+        public PersonBusiness(IRepository<Person> repository)
         {
             this.repository = repository;
+            this.converter = new PersonConverter();
         }
 
         // Metodo responsável por criar uma nova pessoa
         // nesse momento adicionamos o objeto ao contexto
         // e finalmente salvamos as mudanças no contexto
         // na base de dados
-        public Person create(Person person)
+        public PersonVO create(PersonVO person)
         {
-            return this.repository.create(person);
+            var personEntity = this.converter.Parse(person);
+            personEntity =  this.repository.create(personEntity);
+            return this.converter.Parse(personEntity);
         }
 
         // Método responsável por retornar uma pessoa
-        public Person findById(long id)
+        public PersonVO findById(long id)
         {
-            return this.repository.findById(id);
+            return this.converter.Parse(this.repository.findById(id));
         }
 
         // Método responsável por retornar todas as pessoas
-        public List<Person> findAll()
+        public List<PersonVO> findAll()
         {
-            return this.repository.findAll();
+            return this.converter.ParseList(this.repository.findAll());
         }
 
         // Método responsável por atualizar uma pessoa
-        public Person update(Person person)
+        public PersonVO update(PersonVO person)
         {
-            return this.repository.update(person);
+            var personEntity = this.converter.Parse(person);
+            personEntity =  this.repository.update(personEntity);
+            return this.converter.Parse(personEntity);
         }
 
         // Método responsável por deletar
