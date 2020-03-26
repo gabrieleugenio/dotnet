@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using RestWithASPNETUdemy.Repository;
 using RestWithASPNETUdemy.Repository.Implementattions;
 using RestWithASPNETUdemy.Repository.Generic;
+using Microsoft.Net.Http.Headers;
 
 namespace RestWithASPNETUdemy
 {
@@ -54,14 +55,20 @@ namespace RestWithASPNETUdemy
                     throw;
                 }
             }
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.RespectBrowserAcceptHeader = true;
+                options.FormatterMappings.SetMediaTypeMappingForFormat("xml", MediaTypeHeaderValue.Parse("text/xml"));
+                options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
+
+            }).AddXmlSerializerFormatters();
             services.AddApiVersioning();
             //Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusiness>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IBookBusiness, BookBusiness>();
 
-            services.AddScoped(typeof(IRepository<>),typeof(GenericRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
 
         }
 

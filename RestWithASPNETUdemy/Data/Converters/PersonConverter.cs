@@ -16,7 +16,8 @@ namespace RestWithASPNETUdemy.Data.Converters
             {
                 Id = origin.Id,
                 FirstName = origin.FirstName,
-                LastName = origin.Address,
+                LastName = origin.LastName,
+                Address = origin.Address,
                 Gender = origin.Gender
             };
         }
@@ -28,7 +29,8 @@ namespace RestWithASPNETUdemy.Data.Converters
             {
                 Id = origin.Id,
                 FirstName = origin.FirstName,
-                LastName = origin.Address,
+                LastName = origin.LastName,
+                Address = origin.Address,
                 Gender = origin.Gender
             };
         }
