@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -11,27 +10,59 @@ using RestWithASPNETUdemy.Business;
 using RestWithASPNETUdemy.Business.Implementattions;
 using RestWithASPNETUdemy.Model.Context;
 using Microsoft.EntityFrameworkCore;
+using RestWithASPNETUdemy.Repository;
+using RestWithASPNETUdemy.Repository.Implementattions;
+using RestWithASPNETUdemy.Repository.Generic;
 
 namespace RestWithASPNETUdemy
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly ILogger logger;
+        public IConfiguration Configuration { get; }
+        public IHostingEnvironment environment { get; }
+
+        public Startup(IConfiguration configuration, IHostingEnvironment environment, ILogger<Startup> logger)
         {
-            Configuration = configuration;
+            this.Configuration = configuration;
+            this.environment = environment;
+            this.logger = logger;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var connection = Configuration["MySqlConnection:MySqlConnectionString"];
-            services.AddDbContext<MySQLContext>(options => options.UseMySql(connection));
+            var connectionString = Configuration["MySqlConnection:MySqlConnectionString"];
+            services.AddDbContext<MySQLContext>(options => options.UseMySql(connectionString));
+            if (this.environment.IsDevelopment())
+            {
+                try
+                {
+                    var evolveConnection = new MySql.Data.MySqlClient.MySqlConnection(connectionString);
+                    var evolve = new Evolve.Evolve("Evolve.json", evolveConnection, msg => this.logger.LogInformation(msg))
+                    {
+                        Locations = new List<string> { "db/migrations" },
+                        IsEraseDisabled = true,
+                    };
+                    evolve.Migrate();
+
+                }
+                catch (Exception ex)
+                {
+                    this.logger.LogCritical("Database migration failed.", ex);
+                    throw;
+                }
+            }
             services.AddMvc();
             services.AddApiVersioning();
             //Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusiness>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IBookBusiness, BookBusiness>();
+
+            services.AddScoped(typeof(IRepository<>),typeof(GenericRepository<>));
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
