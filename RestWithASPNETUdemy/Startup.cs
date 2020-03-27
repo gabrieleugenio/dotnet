@@ -14,6 +14,10 @@ using RestWithASPNETUdemy.Repository;
 using RestWithASPNETUdemy.Repository.Implementattions;
 using RestWithASPNETUdemy.Repository.Generic;
 using Microsoft.Net.Http.Headers;
+using Tapioca.HATEOAS;
+using RestWithASPNETUdemy.Hypermedia;
+using Swashbuckle.AspNetCore.Swagger;
+using Microsoft.AspNetCore.Rewrite;
 
 namespace RestWithASPNETUdemy
 {
@@ -62,13 +66,24 @@ namespace RestWithASPNETUdemy
                 options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
 
             }).AddXmlSerializerFormatters();
-            services.AddApiVersioning();
+
+            var filterOptions = new HyperMediaFilterOptions();
+            filterOptions.ObjectContentResponseEnricherList.Add(new PersonEnricher());
+
+            services.AddApiVersioning(option => option.ReportApiVersions = true);
+
+            services.AddSwaggerGen(c => {
+                c.SwaggerDoc("v1", new Info{
+                    Title = "RESTful API With ASP.NET Core 2.0",
+                    Version="v1"
+                    });
+            });
             //Dependency Injection
             services.AddScoped<IPersonBusiness, PersonBusiness>();
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IBookBusiness, BookBusiness>();
-
             services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
+            services.AddSingleton(filterOptions);
 
         }
 
@@ -78,7 +93,20 @@ namespace RestWithASPNETUdemy
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
-            app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c => {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json","My API V1");
+            });
+            var option = new RewriteOptions();
+            option.AddRedirect("^$","swagger");
+            app.UseRewriter(option);
+
+            app.UseMvc(routes =>{
+                routes.MapRoute(
+                    name:"DefaultApi",
+                    template:"{controller=Values}/{id?}"
+                );
+            });
         }
     }
 }

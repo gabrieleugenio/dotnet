@@ -1,41 +1,42 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Mvc;
 using RestWithASPNETUdemy.Business;
 using RestWithASPNETUdemy.Data.VO;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using Tapioca.HATEOAS;
 
 namespace RestWithASPNETUdemy.Controllers
 {
-
-    /* Mapeia as requisições de http://localhost:{porta}/api/person/
-    Por padrão o ASP.NET Core mapeia todas as classes que extendem Controller
-    pegando a primeira parte do nome da classe em lower case [Person]Controller
-    e expõe como endpoint REST
-    */
     [ApiVersion("1")]
     [Route("api/v{version:apiVersion}/[controller]")]
     public class PersonsController : Controller
     {
-        //Declaração do serviço usado
+
         private IPersonBusiness personBusiness;
 
-        /* Injeção de uma instancia de IPersonBusiness ao criar
-        uma instancia de PersonController */
         public PersonsController(IPersonBusiness personBusiness)
         {
             this.personBusiness = personBusiness;
         }
 
-        //Mapeia as requisições GET para http://localhost:{porta}/api/person/
-        //Get sem parâmetros para o FindAll --> Busca Todos
         [HttpGet]
+        [SwaggerResponse((200), Type = typeof(List<PersonVO>))]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get()
         {
             return Ok(this.personBusiness.findAll());
         }
 
-        //Mapeia as requisições GET para http://localhost:{porta}/api/person/{id}
-        //recebendo um ID como no Path da requisição
-        //Get com parâmetros para o FindById --> Busca Por ID
+
         [HttpGet("{id}")]
+        [SwaggerResponse((200), Type = typeof(PersonVO))]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(long id)
         {
             var person = this.personBusiness.findById(id);
@@ -43,28 +44,33 @@ namespace RestWithASPNETUdemy.Controllers
             return Ok(person);
         }
 
-        //Mapeia as requisições POST para http://localhost:{porta}/api/person/
-        //O [FromBody] consome o Objeto JSON enviado no corpo da requisição
         [HttpPost]
+        [SwaggerResponse((201), Type = typeof(PersonVO))]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Post([FromBody]PersonVO person)
         {
             if (person == null) return BadRequest();
-            return new  ObjectResult(this.personBusiness.create(person));
+            return new ObjectResult(this.personBusiness.create(person));
         }
 
-        //Mapeia as requisições PUT para http://localhost:{porta}/api/person/
-        //O [FromBody] consome o Objeto JSON enviado no corpo da requisição
         [HttpPut]
+        [SwaggerResponse((202), Type = typeof(PersonVO))]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Put([FromBody]PersonVO person)
         {
             if (person == null) return BadRequest();
             return new ObjectResult(this.personBusiness.update(person));
         }
 
-
-        //Mapeia as requisições DELETE para http://localhost:{porta}/api/person/{id}
-        //recebendo um ID como no Path da requisição
         [HttpDelete("{id}")]
+        [SwaggerResponse(204)]
+        [SwaggerResponse(400)]
+        [SwaggerResponse(401)]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Delete(int id)
         {
             this.personBusiness.delete(id);
